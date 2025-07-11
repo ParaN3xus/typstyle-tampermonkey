@@ -33,7 +33,7 @@ jobs:
     - name: Install wasm-pack
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
-    - name: Build WASM
+    - name: Build typstyle-wasm
       run: wasm-pack build typstyle/crates/typstyle-wasm --out-dir typstyle-tampermonkey/typstyle-wasm
 
     - name: Setup Node.js
@@ -46,15 +46,12 @@ jobs:
       with:
         version: latest
 
-    - name: Set version
-      working-directory: typstyle-tampermonkey
-      run: pnpm version ${{ github.event.inputs.version }}
-
-    - name: Push changes and tags
+    - name: Bump version
       working-directory: typstyle-tampermonkey
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        pnpm version ${{ github.event.inputs.version }}
         git push origin main
         git push origin --tags
 
