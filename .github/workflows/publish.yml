@@ -37,7 +37,7 @@ jobs:
       run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 
     - name: Build typstyle-wasm
-      run: wasm-pack build typstyle/crates/typstyle-wasm --out-dir typstyle-tampermonkey/typstyle-wasm
+      run: wasm-pack build typstyle/crates/typstyle-wasm --out-dir $(pwd)/typstyle-tampermonkey/typstyle-wasm
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
