@@ -55,14 +55,18 @@ jobs:
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
         pnpm version ${{ github.event.inputs.version }}
-        git push origin main
-        git push origin --tags
 
     - name: Build
       working-directory: typstyle-tampermonkey
       run: | 
         pnpm i
         pnpm build
+      
+    - name: Push changes
+      working-directory: typstyle-tampermonkey
+      run: |
+        git push origin main
+        git push origin --tags
 
     - name: Create Release
       uses: softprops/action-gh-release@v2
